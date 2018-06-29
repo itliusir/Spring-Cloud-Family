@@ -1,0 +1,51 @@
+server:
+  port: 8200
+spring:
+  application:
+    name: gateway-proxy
+management:
+  security:
+    enabled: false
+info:
+  app:
+    name: 网关服务
+    version: 1.0
+zuul:
+  # ignored-services: "*"
+  sensitive-headers:
+  prefix: /api  # 请求前缀
+  routes:
+    consumer:
+      path: /consumer/**
+      serviceId: consumer-service
+
+    provider:
+      path: /provider/**
+      serviceId: provider-service
+  retryable: true
+eureka:
+  instance:
+    statusPageUrlPath: /info
+    healthCheckUrlPath: /health
+    prefer-ip-address: true
+    ip-address: 127.0.0.1
+  client:
+    serviceUrl:
+      defaultZone: http://peer1:8761/eureka/,http://peer2:8762/eureka/
+    registry-fetch-interval-seconds: 30
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000 # Hystrix的超时时间是对次节点的请求时间的进行熔断
+          strategy: THREAD
+ribbon:
+  ReadTimeout: 20000  # 处理时间
+  ConnectTimeout: 20000 # 连接时间
+  MaxAutoRetries: 0 #最大自动重试次数
+  MaxAutoRetriesNextServer: 1 # 换实例重试次数
+  MaxTotalHttpConnections: 2000 # 最大http连接数，越大越好，但到到达一个临界点之后，就不会提高响应速度了
+  MaxConnectionsPerHost: 1000 # 每个host连接数

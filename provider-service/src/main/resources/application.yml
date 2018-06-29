@@ -1,0 +1,52 @@
+server:
+  port: 8000
+spring:
+  application:
+    name: provider-service
+
+management:
+  security:
+    enabled: false
+
+info:
+  app:
+    name: 服务提供方
+    version: 1.0
+
+eureka:
+  instance:
+    statusPageUrlPath: /provider-user
+    healthCheckUrlPath: /health
+    prefer-ip-address: true
+    ip-address: 127.0.0.1
+  client:
+    serviceUrl:
+      defaultZone: http://peer1:8761/eureka/,http://peer2:8762/eureka/
+    registry-fetch-interval-seconds: 30
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 20000
+          strategy: THREAD
+
+ribbon:
+  ReadTimeout: 20000
+  ConnectTimeout: 20000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1
+  MaxTotalHttpConnections: 2000
+  MaxConnectionsPerHost: 1000
+
+---
+spring:
+  profiles: config
+  application:
+    name: consumer-service
+  cloud:
+    config:
+      uri: http://localhost:8888
+      fail-fast: true

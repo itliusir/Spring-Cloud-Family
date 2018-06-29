@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: ms-platform-config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: http://1.119.186.147:8085/repogroup/ms-platform-config-client.git
+server:
+  port: 8300
