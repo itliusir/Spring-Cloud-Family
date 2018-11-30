@@ -7,7 +7,7 @@
 - **服务提供者**-`provider-service`
 
 # PPT
-[Download](http://ok0qzthrb.bkt.clouddn.com/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E6%88%98.pptx)
+[Download](http://qiniu.itliusir.com/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E6%88%98.pptx)
 
 # K8S Config
 [example-yaml](https://github.com/itliusir/Study-K8S/tree/master/yaml)
